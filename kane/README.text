@@ -1,0 +1,54 @@
+Source: https://elinux.org/Building_for_BeagleBone
+
+
+1: 	
+
+	apt-get install gcc-arm-linux-gnueabi
+
+	apt-get install libbison-dev
+
+	apt-get install flex
+
+2: 	
+
+	alias armmake='make -j1 ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- '
+
+3:	
+
+	git clone git://git.denx.de/u-boot.git
+
+
+----
+
+
+Get:
+
+		git clone git://git.denx.de/u-boot.git
+
+
+Clean:
+
+		armmake distclean
+
+
+Configure for BeagleBone:
+
+		armmake am335x_evm_config
+
+
+Build:
+
+		armmake
+
+
+
+
+----
+
+ echo -e "o\nn\np\n1\n\n+64M\na\n1\nt\nc\nw\n" | fdisk /dev/sdb
+
+
+ mkfs.vfat -F 32 /dev/sdb1 -n boot
+
+
+
