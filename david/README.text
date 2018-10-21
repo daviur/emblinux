@@ -1,0 +1,27 @@
+##################### Compile U-Boot ######################
+alias armmake='make -j4 ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- '
+armmake distclean
+armmake am335x_evm_config
+armmake
+
+####################### Compile Linux Kernel ######################
+alias armmake='make -j4 ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- '
+armmake omap2plus_defconfig
+armmake xconfig
+armmake
+
+####################### Configure U-Boot ##########################
+setenv ipaddr 192.168.0.100
+#setenv ethaddr 74:e1:82:77:f9:f5
+setenv serverip 192.168.0.1
+setenv rootpath /srv/nfs/nfsroot
+setenv bootargs root=/dev/nfs rw ip=192.168.0.100 console=ttyO0,115200n8 nfsroot=192.168.0.1:/srv/nfs/nfsroot/,nolock,wsize=1024,rsize=1024 rootwait init=/linuxrc rootdelay=5
+setenv bootcmd 'tftp 0x81000000 zImage; tftp 0x82000000 am335x-boneblack.dtb; bootz 0x81000000 - 0x82000000'
+
+####################### Compile BuildRoot ##########################
+alias armmake='make -j4 ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- '
+armmake beaglebone_defconfig
+# Disabled udhcpd and udhcpc (ipv4 and ipv6)
+armmake
+
+
