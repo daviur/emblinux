@@ -1,11 +1,11 @@
 ##################### Compile U-Boot ######################
-alias armmake='make -j4 ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- '
+alias armmake='make -j$(getconf _NPROCESSORS_ONLN) ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- '
 armmake distclean
 armmake am335x_evm_config
 armmake
 
 ####################### Compile Linux Kernel ######################
-alias armmake='make -j4 ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- '
+alias armmake='make -j$(getconf _NPROCESSORS_ONLN) ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- '
 armmake omap2plus_defconfig
 armmake xconfig
 armmake
@@ -14,14 +14,36 @@ armmake
 setenv ipaddr 192.168.0.100
 #setenv ethaddr 74:e1:82:77:f9:f5
 setenv serverip 192.168.0.1
-setenv rootpath /srv/nfs/nfsroot
-setenv bootargs root=/dev/nfs rw ip=192.168.0.100 console=ttyO0,115200n8 nfsroot=192.168.0.1:/srv/nfs/nfsroot/,nolock,wsize=1024,rsize=1024 rootwait init=/linuxrc rootdelay=5
+#setenv rootpath /srv/nfs/nfsroot
+setenv bootargs root=/dev/nfs rw ip=192.168.0.100 console=ttyO0,115200n8 nfsroot=192.168.0.1:/home/david/linux-kernel-labs/modules/nfsroot,nfsvers=3
 setenv bootcmd 'tftp 0x81000000 zImage; tftp 0x82000000 am335x-boneblack.dtb; bootz 0x81000000 - 0x82000000'
+saveenv
 
 ####################### Compile BuildRoot ##########################
-alias armmake='make -j4 ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- '
+alias armmake='make -j$(getconf _NPROCESSORS_ONLN) ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- '
 armmake beaglebone_defconfig
 # Disabled udhcpd and udhcpc (ipv4 and ipv6)
 armmake
+
+####################### Working with modules########################
+# Get Module info
+modinfo <mod_name> (for modules in /lib/modules)
+modinfo <mod_path>.ko
+
+# Load module
+insmod <mod_path>.ko (full path)
+# Load module with all dependencies
+modprobe <mod_name> 
+# List loaded modules
+lsmod
+# Remove module if not in use
+rmmod <mod_name>
+# Remove module with all dependencies if not in use
+modprobe -r <mod_name>
+# See parameters values of loaded modules
+/sys/module/<name>/parameters/<param> (one file per parameter with value)
+
+
+
 
 
