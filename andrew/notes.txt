@@ -1,0 +1,35 @@
+How to bring up the Beagle Bone in NFS
+
+-- Serial Port --
+If you are looking at the beagle bone with the serial IO on the far side of the board from you: Blank, White, Green, Blank, Blank, Black.
+
+sudo picocom -b 115200 /dev/ttyUSB0
+
+-- Boot the board --
+Press and hold the boot from SD button, then press reset. Release the button, then quickly go over to your terminal and press spacebar to interrupt standard boot flow.
+
+env default -f -a
+saveenv
+
+setenv ipaddr 192.168.0.100
+setenv serverip 192.168.0.1
+
+setenv bootargs root=/dev/nfs rw ip=192.168.0.100 console=ttyO0,115200n8 nfsroot=192.168.0.1:/home/andrew/emblinux-projects/nfsroot,nfsvers=3
+
+My tftp root on this system is located at:
+/var/lib/tftpboot
+
+tftp 0x81000000 zImage
+
+tftp 0x82000000 am335x-boneblack.dtb
+
+bootz 0x81000000 - 0x82000000
+
+password
+root/toor
+
+
+Making modules:
+alias armmake='make -j4 ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- '
+
+
