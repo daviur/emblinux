@@ -5,6 +5,12 @@ If you are looking at the beagle bone with the serial IO on the far side of the 
 
 sudo picocom -b 115200 /dev/ttyUSB0
 
+-- Nunchuk Port --
+1-2 = GND (brown) 
+3-4 = VCC (red)
+17 = scl (yellow)
+18 = sda (orange)
+
 -- Boot the board --
 Press and hold the boot from SD button, then press reset. Release the button, then quickly go over to your terminal and press spacebar to interrupt standard boot flow.
 
