@@ -33,7 +33,7 @@ modinfo <mod_path>.ko
 # Load module
 insmod <mod_path>.ko (full path)
 # Load module with all dependencies
-modprobe <mod_name> 
+modprobe <mod_name>
 # List loaded modules
 lsmod
 # Remove module if not in use
@@ -42,8 +42,5 @@ rmmod <mod_name>
 modprobe -r <mod_name>
 # See parameters values of loaded modules
 /sys/module/<name>/parameters/<param> (one file per parameter with value)
-
-
-
 
 
