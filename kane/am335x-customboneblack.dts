@@ -1,0 +1,24 @@
+
+#include "am335x-boneblack.dts"
+
+&i2c1 {
+	clock-frequency = <100000>;
+	status = "okay";
+
+	pinctrl-names = "default";
+	pinctrl-0 = <&i2c1_pins>;
+
+	nunchuk1: nunchuk@52 {
+		compatible = "nintendo,nunchuk";
+		reg = <0x52>;
+	};
+};
+
+&am33xx_pinmux {
+	i2c1_pins: pinmux_i2c1_pins {
+		pinctrl-single,pins = <
+			AM33XX_IOPAD(0x958, PIN_INPUT_PULLUP | MUX_MODE2)	/* i2c0_sda.i2c0_sda */
+			AM33XX_IOPAD(0x95c, PIN_INPUT_PULLUP | MUX_MODE2)	/* i2c0_scl.i2c0_scl */
+		>;
+	};
+};
