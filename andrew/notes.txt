@@ -5,6 +5,12 @@ If you are looking at the beagle bone with the serial IO on the far side of the 
 
 sudo picocom -b 115200 /dev/ttyUSB0
 
+For UART2: 	P9-22 Rx (Pad A17 Mode 1) White
+		P9-21 Tx (Pad A18 Mode 1) Green
+
+For UART4:	P9-11 Rx (Pad T17 Mode 6)
+		P9-13 Tx (Pad U17 Mode 6)
+
 -- Nunchuk Port --
 1-2 = GND (brown) 
 3-4 = VCC (red)
