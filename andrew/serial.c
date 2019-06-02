@@ -14,11 +14,13 @@ struct serial_dev {
 };
 
 static unsigned int reg_read(struct serial_dev *dev, int off){
+	mb();
 	return *(unsigned int *)((unsigned int)(dev->regs) + 4*off);
 }
 
 
 static void reg_write(struct serial_dev *dev,unsigned int val, int off){
+	mb();
 	*(unsigned int *)((unsigned int)(dev->regs) + 4*off) = val;
 }
 
@@ -28,7 +30,7 @@ static void write_char(struct serial_dev *dev, char in_char){
 	}
 	printk("@Write char: LSR = 0x%x, SYSC = 0x%xm EFR = 0x%x\n", reg_read(dev, UART_LSR), reg_read(dev, UART_OMAP_SYSC), reg_read(dev, UART_EFR));
 	reg_write(dev, (unsigned int) in_char, UART_TX);
-	msleep(500);
+	msleep(50);
 	printk("@Write char: LSR = 0x%x, SYSC = 0x%x\n", reg_read(dev, UART_LSR), reg_read(dev, UART_OMAP_SYSC));
 }
 
