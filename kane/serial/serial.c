@@ -116,6 +116,7 @@ static int serial_probe(struct platform_device *pdev) {
 
       // Writing a character out
 	write_char (dev, 'a');
+	write_char (dev, 'b');
 	
 
 	printk("Called %s\n", __func__);
